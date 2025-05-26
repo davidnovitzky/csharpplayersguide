@@ -22,3 +22,24 @@ float average = total / arrayValues.Length;
 
 Console.WriteLine($"The average from the list: {average.ToString("F2")}");
 Console.ReadLine();
+
+/*int[] arrayValues = new int[] { 4, 51, -7, 13, -99, 15, -8, 45, 90 };
+
+int currentSmallest = int.MaxValue;
+float total = 0;
+
+foreach (int value in arrayValues)
+{
+    if (value < currentSmallest)
+    {
+        currentSmallest = value;
+        
+    }
+        total += value;
+}
+
+float average = total / arrayValues.Length;
+
+Console.WriteLine($"Current smallest value: {currentSmallest}");
+Console.WriteLine($"The average from the list: {average.ToString("F2")}");
+Console.ReadLine();*/
