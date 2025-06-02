@@ -14,6 +14,6 @@
 // 1.Display the outcome of the game, win or lose
 // 2.Tells the player if they fell short, overshot, or hit their target.
 // 3.Displays the status of the game, including the round number, and health of city and Manticore.
-// 4.Computes how much damage will be done depending on the current round.
+// 4.Calculate how much damage will be done depending on the current round.
 // 5.Gets a number from the user, asking the prompt supplied by 'text'.
 // 6.Gets a number from the user and ensures it is in the given range.
