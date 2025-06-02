@@ -1,14 +1,14 @@
-// Setup the game with health and round
-// Get the starting distance for the Manticore.
+// Setup the game with health for manticore and city then rounds
+// Get the starting distance for the Manticore from the first player and clear the screen after.
 // Second player turn
-// Run the game until the city is destroyed or the Manticore is destroyed.
+// Run the game in a loop until the city or the Manticore is destroyed.
 // Display the status for the round, city health and manticore health
 // Display the amount of damage expected on a hit.
-// Get a number from the player for the cannon range
-// Display the outcome of the number.
+// Get the input of a number from the player for the cannon range
+// Display the outcome if it fell short or overshot or if it hit.
 // Deal damage to the Manticore if it was a hit.
 // Deal damage to the city if the Manticore is still alive.
-// Go on to the next round until the city or manticore is destroyed
+// Go on to the next round until the city or manticore is destroyed (loop)
 // Display outcome of the game if manticore or city health is = 0
 // ------------------------------- METHODS --------------------------------
 // 1.Display the outcome of the game, win or lose
