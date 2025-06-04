@@ -16,12 +16,17 @@
 // 3.Displays the status of the game, including the round number, and health of city and Manticore.
 // 4.Calculate how much damage will be done depending on the current round.
 
+int manticoreHealth = 10;
+int cityHealth = 15;
+int round = 1;
+
 int manticoreRange = AskForManticoreRange();
 Console.WriteLine("Manticore's range currently is " + manticoreRange);
 Console.ReadLine();
 Console.Clear();
+Console.WriteLine("Player 2, it's your turn.");
+Console.WriteLine("-------------------------");
 Console.ReadLine();
-
 int AskForManticoreRange()
 {
     Console.Write("Player 1, how far away from the city do you want to station the Manticore? ");
