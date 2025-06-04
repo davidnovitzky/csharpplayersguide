@@ -63,6 +63,7 @@ for (int i = 1; i < 100; i++)
         Console.WriteLine("Normal");
     }
 }
+Console.ReadLine();
 */
 
 // write a for loop which goes through 100 times
