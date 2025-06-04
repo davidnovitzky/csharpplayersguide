@@ -15,3 +15,14 @@
 // 2.Tells the player if they fell short, overshot, or hit their target.
 // 3.Displays the status of the game, including the round number, and health of city and Manticore.
 // 4.Calculate how much damage will be done depending on the current round.
+
+int manticoreRange = AskForManticoreRange();
+Console.WriteLine("Manticore's range currently is " + manticoreRange);
+Console.ReadLine();
+int AskForManticoreRange()
+{
+    Console.Write("Player 1, how far away from the city do you want to station the Manticore? ");
+    string inputRange = Console.ReadLine();
+    int.TryParse(inputRange, out int manticoreRange);
+    return manticoreRange;
+}
