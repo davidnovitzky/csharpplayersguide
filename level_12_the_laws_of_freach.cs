@@ -1,3 +1,7 @@
+// Main Objective: Compute the smallest "minimum" and average value of the array values
+// { 4, 51, -7, 13, -99, 15, -8, 45, 90 };
+// Use only foreach loop
+
 int[] arrayValues = new int[] { 4, 51, -7, 13, -99, 15, -8, 45, 90 };
 
 int currentSmallest = int.MaxValue;
