@@ -6,12 +6,13 @@ int[] arrayValues = new int[] { 4, 51, -7, 13, -99, 15, -8, 45, 90 };
 
 int currentSmallest = int.MaxValue;
 
-foreach (int i in arrayValues)
+foreach (int arrayNumber in arrayValues)
 {
-    if (i < currentSmallest)
+    if (arrayNumber < currentSmallest)
     {
-        currentSmallest = i;
+        currentSmallest = arrayNumber;
     }
+    Console.WriteLine(currentSmallest);
 }
 Console.WriteLine($"Current smallest value: {currentSmallest}");
 
