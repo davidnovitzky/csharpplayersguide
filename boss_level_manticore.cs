@@ -19,6 +19,9 @@
 int manticoreRange = AskForManticoreRange();
 Console.WriteLine("Manticore's range currently is " + manticoreRange);
 Console.ReadLine();
+Console.Clear();
+Console.ReadLine();
+
 int AskForManticoreRange()
 {
     Console.Write("Player 1, how far away from the city do you want to station the Manticore? ");
