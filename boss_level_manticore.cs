@@ -20,16 +20,16 @@ int manticoreHealth = 10;
 int cityHealth = 15;
 int round = 1;
 
-int manticoreRange = AskForManticoreRange();
+int manticoreRange = AskForManticoreRange("Player 1, how far away from the city do you want to station the Manticore (0 to 100)? ", 0, 100);
 Console.WriteLine("Manticore's range currently is " + manticoreRange);
 Console.ReadLine();
 Console.Clear();
 Console.WriteLine("Player 2, it's your turn.");
 Console.WriteLine("-------------------------");
 Console.ReadLine();
-int AskForManticoreRange()
+int AskForManticoreRange(string text, int min, int max)
 {
-    Console.Write("Player 1, how far away from the city do you want to station the Manticore? ");
+    Console.Write(text);
     string inputRange = Console.ReadLine();
     int.TryParse(inputRange, out int manticoreRange);
     return manticoreRange;
