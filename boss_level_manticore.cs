@@ -29,8 +29,16 @@ Console.WriteLine("-------------------------");
 Console.ReadLine();
 int AskForManticoreRange(string text, int min, int max)
 {
-    Console.Write(text);
-    string inputRange = Console.ReadLine();
-    int.TryParse(inputRange, out int manticoreRange);
-    return manticoreRange;
+    while (true)
+    {
+        Console.Write(text);
+        string inputRange = Console.ReadLine();
+        int.TryParse(inputRange, out int manticoreRange);
+        if (manticoreRange >= min && manticoreRange <= max) 
+            return manticoreRange;
+    }
 }
+
+// Before the second player turn
+// Display STATUS
+// Display round number, city health, manticore health
