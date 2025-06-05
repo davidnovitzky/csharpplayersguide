@@ -32,45 +32,25 @@ Console.WriteLine("Player 2, it's your turn.");
 while (manticoreHealth > 0 && cityHealth > 0)
 {
     Console.WriteLine("--------------------------------------------------");
-    Console.Write($"STATUS:  Round: {round}  City: {cityHealth}/{startingCityHealth}  ");
-    Console.WriteLine($"Manticore: {manticoreHealth}/{startingManticoreHealth}");
-    ExpectedDamageDeal();
+    DisplayStatus(round, cityHealth, manticoreHealth);
+
+    int damageDealt = DamageDeal();
+    Console.WriteLine($"The cannon is expected to deal {damageDealt} damage this round");
+
     guessedAttackRange = AskForAttackRange("Enter desired cannon range: ", 0, 100);
     DisplayAttackOutcome();
 
-    if (guessedAttackRange == manticoreRange)
-    {
-        int damageDealt = DamageDeal(0);
-        manticoreHealth -= damageDealt;
-    }
+    if (guessedAttackRange == manticoreRange) manticoreHealth -= damageDealt;
+
     cityHealth--;
     round++;
 }
-
 gameResult();
-
-int DamageDeal(int damageDealt)
+int DamageDeal()
 {
-    if (round % 3 == 0 && round % 5 == 0)
-    {
-        damageDealt = 10;
-        return damageDealt;
-    }
-    else if (round % 3 == 0)
-    {
-        damageDealt = 3;
-        return damageDealt;
-    }
-    else if (round % 5 == 0)
-    {
-        damageDealt = 3;
-        return damageDealt;
-    }
-    else
-    {
-        damageDealt = 1;
-        return damageDealt;
-    }
+    if      (round % 3 == 0 && round % 5 == 0) return 10;
+    else if (round % 3 == 0 || round % 5 == 0) return 3;
+    else                                       return 1;
 }
 int AskForAttackRange(string text, int min, int max)
 {
@@ -111,31 +91,6 @@ int AskForManticoreRange(string text, int min, int max)
             return manticoreRange;
     }
 }
-
-void ExpectedDamageDeal()
-{
-    if (round % 3 == 0 && round % 5 == 0)
-    {
-        int damageDealt = 10;
-        Console.WriteLine($"The cannon is expected to deal {damageDealt} damage this round");
-    }
-    else if (round % 3 == 0)
-    {
-        int damageDealt = 3;
-        Console.WriteLine($"The cannon is expected to deal {damageDealt} damage this round");
-    }
-    else if (round % 5 == 0)
-    {
-        int damageDealt = 3;
-        Console.WriteLine($"The cannon is expected to deal {damageDealt} damage this round");
-    }
-    else
-    {
-        int damageDealt = 1;
-        Console.WriteLine($"The cannon is expected to deal {damageDealt} damage this round");
-    }
-}
-
 void DisplayAttackOutcome()
 {
     if (guessedAttackRange > manticoreRange)
@@ -156,4 +111,10 @@ void DisplayAttackOutcome()
         Console.WriteLine("That round was a DIRECT HIT!");
         Console.ResetColor();
     }
+}
+
+void DisplayStatus(int round, int cityHealth, int manticoreHealth)
+{
+    Console.Write($"STATUS:  Round: {round}  City: {cityHealth}/{startingCityHealth}  ");
+    Console.WriteLine($"Manticore: {manticoreHealth}/{startingManticoreHealth}");
 }
