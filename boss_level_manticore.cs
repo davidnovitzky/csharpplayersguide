@@ -16,7 +16,9 @@
 // 3.Displays the status of the game, including the round number, and health of city and Manticore.
 // 4.Calculate how much damage will be done depending on the current round.
 
-int manticoreHealth = 10;
+const int startingManticoreHealth = 40;
+const int startingCityHealth = 15;
+int manticoreHealth = 40;
 int cityHealth = 15;
 int round = 1;
 
@@ -25,8 +27,35 @@ Console.WriteLine("Manticore's range currently is " + manticoreRange);
 Console.ReadLine();
 Console.Clear();
 Console.WriteLine("Player 2, it's your turn.");
-Console.WriteLine("-------------------------");
-Console.ReadLine();
+
+
+while (manticoreHealth >= 0 && cityHealth >= 0)
+{
+    Console.WriteLine("--------------------------------------------------");
+    Console.Write($"STATUS:  Round: {round}  City: {cityHealth}/{startingCityHealth}  ");
+    Console.WriteLine($"Manticore: {manticoreHealth}/{startingManticoreHealth}");
+    ExcpectedDamageDeal();
+    cityHealth--;
+    round++;
+    Console.ReadLine();
+}
+
+gameResult();
+
+void gameResult()
+{
+    string wonGame = "Congratualations the Manticore has been destroyed!";
+    string lostGame = "Oh no! The City has been destroyed!";
+
+    string gameOutcome = (cityHealth > 0) ? wonGame : lostGame; // determines what message will be printed
+    ConsoleColor outcomeColor = (cityHealth > 0) ? ConsoleColor.Green : ConsoleColor.Red; // determines what color will be printed in
+
+    Console.ForegroundColor = outcomeColor;
+    Console.WriteLine(gameOutcome);
+    Console.ResetColor();
+    Console.ReadLine();
+}
+
 int AskForManticoreRange(string text, int min, int max)
 {
     while (true)
@@ -39,6 +68,30 @@ int AskForManticoreRange(string text, int min, int max)
     }
 }
 
-// Before the second player turn
-// Display STATUS
-// Display round number, city health, manticore health
+void ExcpectedDamageDeal()
+{
+    if (round % 3 == 0 && round % 5 == 0)
+    {
+        int damage = 10;
+        manticoreHealth -= damage;
+        Console.WriteLine($"The cannon is expected to deal {damage} damage this round");
+    }
+    else if (round % 3 == 0)
+    {
+        int damage = 3;
+        manticoreHealth -= damage;
+        Console.WriteLine($"The cannon is expected to deal {damage} damage this round");
+    }
+    else if (round % 5 == 0)
+    {
+        int damage = 3;
+        manticoreHealth -= damage;
+        Console.WriteLine($"The cannon is expected to deal {damage} damage this round");
+    }
+    else
+    {
+        int damage = 1;
+        manticoreHealth -= damage;
+        Console.WriteLine($"The cannon is expected to deal {damage} damage this round");
+    }
+}
