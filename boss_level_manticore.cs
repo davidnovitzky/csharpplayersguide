@@ -21,7 +21,7 @@ const int startingCityHealth = 15;
 int manticoreHealth = 10;
 int cityHealth = 15;
 int round = 1;
-int attackRange;
+int guessedAttackRange = 0;
 
 int manticoreRange = AskForManticoreRange("Player 1, how far away from the city do you want to station the Manticore (0 to 100)? ", 0, 100);
 Console.WriteLine("Manticore's range currently is " + manticoreRange);
@@ -29,33 +29,51 @@ Console.ReadLine();
 Console.Clear();
 Console.WriteLine("Player 2, it's your turn.");
 
-// Display the outcome if the attack fell short, overshot or if it hit.
-// If the attack is lower than the manticore range display fell short and dont take away HP from manticore
-// If attack is greater than the manticore range display attack overshot and dont take away HP from manticore
-// If attack direct hits the manticore display a direct hit and take away the appropriate damage from the manticore
-
-    while (manticoreHealth >= 0 && cityHealth >= 0)
+    while (manticoreHealth > 0 && cityHealth > 0)
     {
         Console.WriteLine("--------------------------------------------------");
         Console.Write($"STATUS:  Round: {round}  City: {cityHealth}/{startingCityHealth}  ");
         Console.WriteLine($"Manticore: {manticoreHealth}/{startingManticoreHealth}");
         ExcpectedDamageDeal();
-        attackRange = AskForAttackRange("Enter desired cannon range: ", 0, 100);
+        guessedAttackRange = AskForAttackRange("Enter desired cannon range: ", 0, 100);
         DisplayAttackOutcome();
+
+        if (guessedAttackRange==manticoreRange)
+        {
+            int damageDealt = DamageDeal(0);
+            manticoreHealth -= damageDealt;
+        }
         cityHealth--;
         round++;
     }
 
-
-
-
-
-
-
-
-
-
 gameResult();
+
+int DamageDeal(int damage)
+{
+    if (round % 3 == 0 && round % 5 == 0)
+    {
+        int damageDealt = 10;
+        return damageDealt;
+        
+    }
+    else if (round % 3 == 0)
+    {
+        int damageDealt = 3;
+        return damageDealt;
+
+    }
+    else if (round % 5 == 0)
+    {
+        int damageDealt = 3;
+        return damageDealt;
+    }
+    else
+    {
+        int damageDealt = 1;
+        return damageDealt;
+    }
+}
 int AskForAttackRange(string text, int min, int max)
 {
     while (true)
@@ -100,42 +118,38 @@ void ExcpectedDamageDeal()
 {
     if (round % 3 == 0 && round % 5 == 0)
     {
-        int damage = 10;
-        manticoreHealth -= damage;
-        Console.WriteLine($"The cannon is expected to deal {damage} damage this round");
+        int damageDealt = 10;
+        Console.WriteLine($"The cannon is expected to deal {damageDealt} damage this round");
     }
     else if (round % 3 == 0)
     {
-        int damage = 3;
-        manticoreHealth -= damage;
-        Console.WriteLine($"The cannon is expected to deal {damage} damage this round");
+        int damageDealt = 3;
+        Console.WriteLine($"The cannon is expected to deal {damageDealt} damage this round");
     }
     else if (round % 5 == 0)
     {
-        int damage = 3;
-        manticoreHealth -= damage;
-        Console.WriteLine($"The cannon is expected to deal {damage} damage this round");
+        int damageDealt = 3;
+        Console.WriteLine($"The cannon is expected to deal {damageDealt} damage this round");
     }
     else
     {
-        int damage = 1;
-        manticoreHealth -= damage;
-        Console.WriteLine($"The cannon is expected to deal {damage} damage this round");
+        int damageDealt = 1;
+        Console.WriteLine($"The cannon is expected to deal {damageDealt} damage this round");
     }
 }
 
 void DisplayAttackOutcome()
 {
-    if (attackRange > manticoreRange)
+    if (guessedAttackRange > manticoreRange)
     {
         Console.ForegroundColor = ConsoleColor.Magenta;
-        Console.WriteLine("That round OVERSHOT the target");
+        Console.WriteLine("That round OVERSHOT the target.");
         Console.ResetColor();
     }
-    else if (attackRange < manticoreRange)
+    else if (guessedAttackRange < manticoreRange)
     {
         Console.ForegroundColor = ConsoleColor.Magenta;
-        Console.WriteLine("That round FELL SHORT of the target");
+        Console.WriteLine("That round FELL SHORT of the target.");
         Console.ResetColor();
     }
     else
