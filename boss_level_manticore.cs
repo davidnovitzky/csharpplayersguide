@@ -16,11 +16,12 @@
 // 3.Displays the status of the game, including the round number, and health of city and Manticore.
 // 4.Calculate how much damage will be done depending on the current round.
 
-const int startingManticoreHealth = 40;
+const int startingManticoreHealth = 10;
 const int startingCityHealth = 15;
-int manticoreHealth = 40;
+int manticoreHealth = 10;
 int cityHealth = 15;
 int round = 1;
+int attackRange;
 
 int manticoreRange = AskForManticoreRange("Player 1, how far away from the city do you want to station the Manticore (0 to 100)? ", 0, 100);
 Console.WriteLine("Manticore's range currently is " + manticoreRange);
@@ -28,46 +29,24 @@ Console.ReadLine();
 Console.Clear();
 Console.WriteLine("Player 2, it's your turn.");
 
+// Display the outcome if the attack fell short, overshot or if it hit.
+// If the attack is lower than the manticore range display fell short and dont take away HP from manticore
+// If attack is greater than the manticore range display attack overshot and dont take away HP from manticore
+// If attack direct hits the manticore display a direct hit and take away the appropriate damage from the manticore
 
-while (manticoreHealth >= 0 && cityHealth >= 0)
-{
-    Console.WriteLine("--------------------------------------------------");
-    Console.Write($"STATUS:  Round: {round}  City: {cityHealth}/{startingCityHealth}  ");
-    Console.WriteLine($"Manticore: {manticoreHealth}/{startingManticoreHealth}");
-    ExcpectedDamageDeal();
-    cityHealth--;
-    round++;
-    Console.ReadLine();
-}
-
-// prompt the user to enter the cannon range
-// make a method to enter range from 0 to 100 and use it where you can
-
-
-
-
-int attackRange = AskForAttackRange("Enter desired cannon range", 0, 100);
-
-
-
-
-
-
-
-
-int AskForAttackRange(string text, int min, int max)
-{
-    while (true)
+    while (manticoreHealth >= 0 && cityHealth >= 0)
     {
-        Console.Write(text + " ");
-        Console.ForegroundColor = ConsoleColor.Cyan;
-        string inputRange = Console.ReadLine();
-        int.TryParse(inputRange, out int attackRange);
-        if (attackRange >= min && attackRange <= max)
-            return attackRange;
+        Console.WriteLine("--------------------------------------------------");
+        Console.Write($"STATUS:  Round: {round}  City: {cityHealth}/{startingCityHealth}  ");
+        Console.WriteLine($"Manticore: {manticoreHealth}/{startingManticoreHealth}");
+        ExcpectedDamageDeal();
+        attackRange = AskForAttackRange("Enter desired cannon range: ", 0, 100);
+        DisplayAttackOutcome();
+        cityHealth--;
+        round++;
     }
 
-}
+
 
 
 
@@ -77,7 +56,20 @@ int AskForAttackRange(string text, int min, int max)
 
 
 gameResult();
+int AskForAttackRange(string text, int min, int max)
+{
+    while (true)
+    {
+        Console.Write(text);
+        Console.ForegroundColor = ConsoleColor.Cyan;
+        string inputRange = Console.ReadLine();
+        int.TryParse(inputRange, out int attackRange);
+        Console.ResetColor();
+        if (attackRange >= min && attackRange <= max)
+            return attackRange;
+    }
 
+}
 void gameResult()
 {
     string wonGame = "Congratualations the Manticore has been destroyed!";
@@ -99,7 +91,7 @@ int AskForManticoreRange(string text, int min, int max)
         Console.Write(text);
         string inputRange = Console.ReadLine();
         int.TryParse(inputRange, out int manticoreRange);
-        if (manticoreRange >= min && manticoreRange <= max) 
+        if (manticoreRange >= min && manticoreRange <= max)
             return manticoreRange;
     }
 }
@@ -129,5 +121,27 @@ void ExcpectedDamageDeal()
         int damage = 1;
         manticoreHealth -= damage;
         Console.WriteLine($"The cannon is expected to deal {damage} damage this round");
+    }
+}
+
+void DisplayAttackOutcome()
+{
+    if (attackRange > manticoreRange)
+    {
+        Console.ForegroundColor = ConsoleColor.Magenta;
+        Console.WriteLine("That round OVERSHOT the target");
+        Console.ResetColor();
+    }
+    else if (attackRange < manticoreRange)
+    {
+        Console.ForegroundColor = ConsoleColor.Magenta;
+        Console.WriteLine("That round FELL SHORT of the target");
+        Console.ResetColor();
+    }
+    else
+    {
+        Console.ForegroundColor = ConsoleColor.Yellow;
+        Console.WriteLine("That round was a DIRECT HIT!");
+        Console.ResetColor();
     }
 }
