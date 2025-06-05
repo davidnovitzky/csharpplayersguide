@@ -40,6 +40,41 @@ while (manticoreHealth >= 0 && cityHealth >= 0)
     Console.ReadLine();
 }
 
+// prompt the user to enter the cannon range
+// make a method to enter range from 0 to 100 and use it where you can
+
+
+
+
+int attackRange = AskForAttackRange("Enter desired cannon range", 0, 100);
+
+
+
+
+
+
+
+
+int AskForAttackRange(string text, int min, int max)
+{
+    while (true)
+    {
+        Console.Write(text);
+        string inputRange = Console.ReadLine();
+        int.TryParse(inputRange, out int attackRange);
+        if (attackRange >= min && attackRange <= max)
+            return attackRange;
+    }
+
+}
+
+
+
+
+
+
+
+
 gameResult();
 
 void gameResult()
