@@ -21,7 +21,6 @@ const int startingCityHealth = 15;
 int manticoreHealth = 10;
 int cityHealth = 15;
 int round = 1;
-int guessedAttackRange = 0;
 
 int manticoreRange = AskForManticoreRange("Player 1, how far away from the city do you want to station the Manticore (0 to 100)? ", 0, 100);
 Console.WriteLine("Manticore's range currently is " + manticoreRange);
@@ -37,8 +36,8 @@ while (manticoreHealth > 0 && cityHealth > 0)
     int damageDealt = DamageDeal();
     Console.WriteLine($"The cannon is expected to deal {damageDealt} damage this round");
 
-    guessedAttackRange = AskForAttackRange("Enter desired cannon range: ", 0, 100);
-    DisplayAttackOutcome();
+    int guessedAttackRange = AskForAttackRange("Enter desired cannon range (0 to 100): ", 0, 100);
+    DisplayAttackOutcome(guessedAttackRange);
 
     if (guessedAttackRange == manticoreRange) manticoreHealth -= damageDealt;
 
@@ -66,6 +65,19 @@ int AskForAttackRange(string text, int min, int max)
     }
 
 }
+int AskForManticoreRange(string text, int min, int max)
+{
+    while (true)
+    {
+        Console.Write(text);
+        Console.ForegroundColor = ConsoleColor.Cyan;
+        string inputRange = Console.ReadLine();
+        int.TryParse(inputRange, out int manticoreRange);
+        Console.ResetColor();
+        if (manticoreRange >= min && manticoreRange <= max)
+            return manticoreRange;
+    }
+}
 void gameResult()
 {
     string wonGame = "Congratualations the Manticore has been destroyed!";
@@ -76,42 +88,26 @@ void gameResult()
 
     Console.ForegroundColor = outcomeColor;
     Console.WriteLine(gameOutcome);
-    Console.ResetColor();
     Console.ReadLine();
 }
-
-int AskForManticoreRange(string text, int min, int max)
-{
-    while (true)
-    {
-        Console.Write(text);
-        string inputRange = Console.ReadLine();
-        int.TryParse(inputRange, out int manticoreRange);
-        if (manticoreRange >= min && manticoreRange <= max)
-            return manticoreRange;
-    }
-}
-void DisplayAttackOutcome()
+void DisplayAttackOutcome(int guessedAttackRange)
 {
     if (guessedAttackRange > manticoreRange)
-    {
-        Console.ForegroundColor = ConsoleColor.Magenta;
-        Console.WriteLine("That round OVERSHOT the target.");
-    }
+        ShowColoredMessage("That round OVERSHOT the target.", ConsoleColor.Magenta);
+
     else if (guessedAttackRange < manticoreRange)
-    {
-        Console.ForegroundColor = ConsoleColor.Magenta;
-        Console.WriteLine("That round FELL SHORT of the target.");
-    }
+        ShowColoredMessage("That round FELL SHORT of the target.", ConsoleColor.Magenta);
+
     else
-    {
-        Console.ForegroundColor = ConsoleColor.Yellow;
-        Console.WriteLine("That round was a DIRECT HIT!");
-    }
+        ShowColoredMessage("That round was a DIRECT HIT!", ConsoleColor.Yellow);   
+}
+void ShowColoredMessage(string message, ConsoleColor color)
+{
+    Console.ForegroundColor = color;
+    Console.WriteLine(message);
     Console.ResetColor();
 }
 void DisplayStatus(int round, int cityHealth, int manticoreHealth)
 {
-    Console.Write($"STATUS:  Round: {round}  City: {cityHealth}/{startingCityHealth}  ");
-    Console.WriteLine($"Manticore: {manticoreHealth}/{startingManticoreHealth}");
+    Console.WriteLine($"STATUS:  Round: {round}  City: {cityHealth}/{startingCityHealth}  Manticore: {manticoreHealth}/{startingManticoreHealth}");
 }
