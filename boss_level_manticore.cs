@@ -22,7 +22,7 @@ int manticoreHealth = 10;
 int cityHealth = 15;
 int round = 1;
 
-int manticoreRange = AskForManticoreRange("Player 1, how far away from the city do you want to station the Manticore (0 to 100)? ", 0, 100);
+int manticoreRange = AskForManticoreRange(0, 100);
 Console.WriteLine("Manticore's range currently is " + manticoreRange);
 Console.ReadLine();
 Console.Clear();
@@ -36,7 +36,7 @@ while (manticoreHealth > 0 && cityHealth > 0)
     int damageDealt = GetExpectedDamageOutput();
     Console.WriteLine($"The cannon is expected to deal {damageDealt} damage this round");
 
-    int guessedAttackRange = AskForAttackRange("Enter desired cannon range (0 to 100): ", 0, 100);
+    int guessedAttackRange = AskForAttackRange(0, 100);
     DisplayAttackOutcome(guessedAttackRange);
 
     if (guessedAttackRange == manticoreRange) manticoreHealth -= damageDealt;
@@ -51,19 +51,19 @@ int GetExpectedDamageOutput()
     else if (round % 3 == 0 || round % 5 == 0) return 3;
     else                                       return 1;
 }
-int AskForAttackRange(string text, int min, int max)
+int AskForAttackRange(int min, int max)
 {
-    return GetNumberFromUser(text, min, max);
+    return GetNumberFromUser("Enter desired cannon range (0 to 100): ", min, max);
 }
-int AskForManticoreRange(string text, int min, int max)
+int AskForManticoreRange(int min, int max)
 {
-    return GetNumberFromUser(text, min, max);
+    return GetNumberFromUser("Player 1, how far away from the city do you want to station the Manticore (0 to 100)? ", min, max);
 }
-int GetNumberFromUser(string prompt, int min, int max)
+int GetNumberFromUser(string text, int min, int max)
 {
     while (true)
     {
-        Console.Write(prompt);
+        Console.Write(text);
         Console.ForegroundColor = ConsoleColor.Cyan;
         string input = Console.ReadLine();
         Console.ResetColor();
