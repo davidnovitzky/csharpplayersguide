@@ -33,7 +33,7 @@ while (manticoreHealth > 0 && cityHealth > 0)
     Console.WriteLine("--------------------------------------------------");
     DisplayStatus(round, cityHealth, manticoreHealth);
 
-    int damageDealt = DamageDeal();
+    int damageDealt = GetExpectedDamageOutput();
     Console.WriteLine($"The cannon is expected to deal {damageDealt} damage this round");
 
     int guessedAttackRange = AskForAttackRange("Enter desired cannon range (0 to 100): ", 0, 100);
@@ -44,8 +44,8 @@ while (manticoreHealth > 0 && cityHealth > 0)
     cityHealth--;
     round++;
 }
-GameResult();
-int DamageDeal()
+DisplayGameResult();
+int GetExpectedDamageOutput()
 {
     if      (round % 3 == 0 && round % 5 == 0) return 10;
     else if (round % 3 == 0 || round % 5 == 0) return 3;
@@ -53,32 +53,26 @@ int DamageDeal()
 }
 int AskForAttackRange(string text, int min, int max)
 {
-    while (true)
-    {
-        Console.Write(text);
-        Console.ForegroundColor = ConsoleColor.Cyan;
-        string inputRange = Console.ReadLine();
-        int.TryParse(inputRange, out int attackRange);
-        Console.ResetColor();
-        if (attackRange >= min && attackRange <= max)
-            return attackRange;
-    }
-
+    return GetNumberFromUser(text, min, max);
 }
 int AskForManticoreRange(string text, int min, int max)
 {
+    return GetNumberFromUser(text, min, max);
+}
+int GetNumberFromUser(string prompt, int min, int max)
+{
     while (true)
     {
-        Console.Write(text);
+        Console.Write(prompt);
         Console.ForegroundColor = ConsoleColor.Cyan;
-        string inputRange = Console.ReadLine();
-        int.TryParse(inputRange, out int manticoreRange);
+        string input = Console.ReadLine();
         Console.ResetColor();
-        if (manticoreRange >= min && manticoreRange <= max)
-            return manticoreRange;
+        int.TryParse(input, out int number);
+        if (number >= min && number <= max)
+            return number;
     }
 }
-void GameResult()
+void DisplayGameResult()
 {
     string wonGame = "Congratualations the Manticore has been destroyed!";
     string lostGame = "Oh no! The City has been destroyed!";
