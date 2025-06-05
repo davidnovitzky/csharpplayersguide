@@ -59,7 +59,8 @@ int AskForAttackRange(string text, int min, int max)
 {
     while (true)
     {
-        Console.Write(text);
+        Console.Write(text + " ");
+        Console.ForegroundColor = ConsoleColor.Cyan;
         string inputRange = Console.ReadLine();
         int.TryParse(inputRange, out int attackRange);
         if (attackRange >= min && attackRange <= max)
