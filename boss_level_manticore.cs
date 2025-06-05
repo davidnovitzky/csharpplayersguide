@@ -44,7 +44,7 @@ while (manticoreHealth > 0 && cityHealth > 0)
     cityHealth--;
     round++;
 }
-gameResult();
+GameResult();
 int DamageDeal()
 {
     if      (round % 3 == 0 && round % 5 == 0) return 10;
@@ -78,7 +78,7 @@ int AskForManticoreRange(string text, int min, int max)
             return manticoreRange;
     }
 }
-void gameResult()
+void GameResult()
 {
     string wonGame = "Congratualations the Manticore has been destroyed!";
     string lostGame = "Oh no! The City has been destroyed!";
