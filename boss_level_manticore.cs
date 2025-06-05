@@ -55,13 +55,11 @@ int DamageDeal(int damageDealt)
     {
         damageDealt = 10;
         return damageDealt;
-
     }
     else if (round % 3 == 0)
     {
         damageDealt = 3;
         return damageDealt;
-
     }
     else if (round % 5 == 0)
     {
@@ -86,7 +84,6 @@ int AskForAttackRange(string text, int min, int max)
         if (attackRange >= min && attackRange <= max)
             return attackRange;
     }
-
 }
 void gameResult()
 {
