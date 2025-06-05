@@ -34,7 +34,7 @@ while (manticoreHealth > 0 && cityHealth > 0)
     Console.WriteLine("--------------------------------------------------");
     Console.Write($"STATUS:  Round: {round}  City: {cityHealth}/{startingCityHealth}  ");
     Console.WriteLine($"Manticore: {manticoreHealth}/{startingManticoreHealth}");
-    ExcpectedDamageDeal();
+    ExpectedDamageDeal();
     guessedAttackRange = AskForAttackRange("Enter desired cannon range: ", 0, 100);
     DisplayAttackOutcome();
 
@@ -84,6 +84,7 @@ int AskForAttackRange(string text, int min, int max)
         if (attackRange >= min && attackRange <= max)
             return attackRange;
     }
+
 }
 void gameResult()
 {
@@ -111,7 +112,7 @@ int AskForManticoreRange(string text, int min, int max)
     }
 }
 
-void ExcpectedDamageDeal()
+void ExpectedDamageDeal()
 {
     if (round % 3 == 0 && round % 5 == 0)
     {
