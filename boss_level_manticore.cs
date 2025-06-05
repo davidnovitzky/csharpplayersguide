@@ -97,22 +97,19 @@ void DisplayAttackOutcome()
     {
         Console.ForegroundColor = ConsoleColor.Magenta;
         Console.WriteLine("That round OVERSHOT the target.");
-        Console.ResetColor();
     }
     else if (guessedAttackRange < manticoreRange)
     {
         Console.ForegroundColor = ConsoleColor.Magenta;
         Console.WriteLine("That round FELL SHORT of the target.");
-        Console.ResetColor();
     }
     else
     {
         Console.ForegroundColor = ConsoleColor.Yellow;
         Console.WriteLine("That round was a DIRECT HIT!");
-        Console.ResetColor();
     }
+    Console.ResetColor();
 }
-
 void DisplayStatus(int round, int cityHealth, int manticoreHealth)
 {
     Console.Write($"STATUS:  Round: {round}  City: {cityHealth}/{startingCityHealth}  ");
