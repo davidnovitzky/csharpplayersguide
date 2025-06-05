@@ -29,48 +29,48 @@ Console.ReadLine();
 Console.Clear();
 Console.WriteLine("Player 2, it's your turn.");
 
-    while (manticoreHealth > 0 && cityHealth > 0)
-    {
-        Console.WriteLine("--------------------------------------------------");
-        Console.Write($"STATUS:  Round: {round}  City: {cityHealth}/{startingCityHealth}  ");
-        Console.WriteLine($"Manticore: {manticoreHealth}/{startingManticoreHealth}");
-        ExcpectedDamageDeal();
-        guessedAttackRange = AskForAttackRange("Enter desired cannon range: ", 0, 100);
-        DisplayAttackOutcome();
+while (manticoreHealth > 0 && cityHealth > 0)
+{
+    Console.WriteLine("--------------------------------------------------");
+    Console.Write($"STATUS:  Round: {round}  City: {cityHealth}/{startingCityHealth}  ");
+    Console.WriteLine($"Manticore: {manticoreHealth}/{startingManticoreHealth}");
+    ExcpectedDamageDeal();
+    guessedAttackRange = AskForAttackRange("Enter desired cannon range: ", 0, 100);
+    DisplayAttackOutcome();
 
-        if (guessedAttackRange==manticoreRange)
-        {
-            int damageDealt = DamageDeal(0);
-            manticoreHealth -= damageDealt;
-        }
-        cityHealth--;
-        round++;
+    if (guessedAttackRange == manticoreRange)
+    {
+        int damageDealt = DamageDeal(0);
+        manticoreHealth -= damageDealt;
     }
+    cityHealth--;
+    round++;
+}
 
 gameResult();
 
-int DamageDeal(int damage)
+int DamageDeal(int damageDealt)
 {
     if (round % 3 == 0 && round % 5 == 0)
     {
-        int damageDealt = 10;
+        damageDealt = 10;
         return damageDealt;
-        
+
     }
     else if (round % 3 == 0)
     {
-        int damageDealt = 3;
+        damageDealt = 3;
         return damageDealt;
 
     }
     else if (round % 5 == 0)
     {
-        int damageDealt = 3;
+        damageDealt = 3;
         return damageDealt;
     }
     else
     {
-        int damageDealt = 1;
+        damageDealt = 1;
         return damageDealt;
     }
 }
