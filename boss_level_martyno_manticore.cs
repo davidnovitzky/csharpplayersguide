@@ -131,7 +131,7 @@ void PrintRoundAndPlayersScores()
 
 void PrintGameResult()
 {
-    string wonGame = "Congratualations the Manticore has been destroyed!";
+    string wonGame = "Congratulations the Manticore has been destroyed!";
     string lostGame = "Oh no! The City has been destroyed!";
 
     string gameOutcome = (cityHealth > 0) ? wonGame : lostGame; // determines what message will be printed
