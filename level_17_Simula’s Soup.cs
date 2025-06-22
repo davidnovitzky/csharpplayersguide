@@ -12,7 +12,7 @@
 // You don’t need to convert the enumeration value back to a string. Simply displaying an
 // enumeration value with Write or WriteLine will display the name of the enumeration value.)
 
-(SoupVariation soupType, IngredientType ingredient, SeasoningType seasoning) finalSoup = (AskSoupType("What kind of soup type would you like (Soup, Stew, Gumbo): "), AskIngredientType("What kind of main ingredient would you like (Mushroom, Chicken, Carrot, Potato): "), AskSeasoningType("What kind of seasoning would you like (Spicy, Salty, Sweet): "));
+(SoupVariation soupType, IngredientType ingredient, SeasoningType seasoning) finalSoup = (AskSoupType(), AskIngredientType(), AskSeasoningType());
 Console.ForegroundColor = ConsoleColor.Yellow;
 string finalMessage = ($"You ordered a {finalSoup.seasoning} {finalSoup.ingredient} {finalSoup.soupType}");
 Console.ResetColor();
@@ -22,8 +22,9 @@ foreach (char character in finalMessage)
     Console.Write(character);
     Thread.Sleep(25);
 }
-SoupVariation AskSoupType(string text)
+SoupVariation AskSoupType()
 {
+    string text = "What kind of soup type would you like (Soup, Stew, Gumbo): ";
     foreach (char character in text)
     {
         Console.Write(character);
@@ -40,8 +41,9 @@ SoupVariation AskSoupType(string text)
     };
     return type;
 }
-IngredientType AskIngredientType(string text)
+IngredientType AskIngredientType()
 {
+    string text = "What kind of main ingredient would you like (Mushroom, Chicken, Carrot, Potato): ";
     foreach (char character in text)
     {
         Console.Write(character);
@@ -59,8 +61,9 @@ IngredientType AskIngredientType(string text)
     };
     return type;
 }
-SeasoningType AskSeasoningType(string text)
+SeasoningType AskSeasoningType()
 {
+    string text = "What kind of seasoning would you like (Spicy, Salty, Sweet): ";
     foreach (char character in text)
     {
         Console.Write(character);
