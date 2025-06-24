@@ -72,17 +72,17 @@ float ChooseShaftLength()
 }
 class Arrow
 {
-    public ArrowheadType Arrowhead;
+    public ArrowheadType Arrowhead; // kodel naudojami fieldsai o ne paprasti kintamieji
     public FletchingType Fletching;
     public float Length;
 
     public Arrow(ArrowheadType arrowhead, FletchingType flethcing, float length)
     {
-        Arrowhead = arrowhead;
+        Arrowhead = arrowhead; // kodel kintamuosius priskirti fieldsam
         Fletching = flethcing;
         Length = length;
     }
-    public float GetCost()
+    public float GetCost() // kodel metodas turi buti klaseje
     {
         float shaftCost = 0.05f * Length;
         float arrowCost;
