@@ -89,40 +89,21 @@ class Arrow
         get
         {
             float shaftCost = 0.05f * Length;
-            float arrowheadCost;
-            float fletchingCost;
+ 
+            float arrowheadCost = Arrowhead switch
+            {
+                ArrowheadType.Steel => 10f,
+                ArrowheadType.Wood => 3f,
+                ArrowheadType.Obsidian => 5f
+            };
+            float fletchingCost = Fletching switch
+            {
+                FletchingType.Plastic => 10f,
+                FletchingType.TurkeyFeathers => 5f,
+                FletchingType.GooseFeathers => 3f
+            };
 
-            switch (Arrowhead)
-            {
-                case ArrowheadType.Steel:
-                    arrowheadCost = 10.0f;
-                    break;
-                case ArrowheadType.Wood:
-                    arrowheadCost = 3.0f;
-                    break;
-                case ArrowheadType.Obsidian:
-                    arrowheadCost = 5.0f;
-                    break;
-                default:
-                    arrowheadCost = 0f;
-                    break;
-            }
-            switch (Fletching)
-            {
-                case FletchingType.Plastic:
-                    fletchingCost = 10.0f;
-                    break;
-                case FletchingType.TurkeyFeathers:
-                    fletchingCost = 5.0f;
-                    break;
-                case FletchingType.GooseFeathers:
-                    fletchingCost = 3.0f;
-                    break;
-                default:
-                    fletchingCost = 0f;
-                    break;
-            }
-            return arrowheadCost + shaftCost + fletchingCost;
+            return shaftCost + arrowheadCost + fletchingCost;
         }
     }
 }
