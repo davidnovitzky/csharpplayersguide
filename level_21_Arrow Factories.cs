@@ -35,7 +35,7 @@ while (true)
 Console.WriteLine($"You picked a {arrow.Arrowhead} arrowhead type");
 Console.WriteLine($"You picked a {arrow.Fletching} fletching type");
 Console.WriteLine($"Your shaft length is {arrow.Length} cm long");
-Console.WriteLine($"The arrow costs {arrow.GetCost} gold.");
+Console.WriteLine($"The arrow costs {arrow.Cost} gold.");
 
 ArrowheadType ChooseArrowHeadType()
 {
