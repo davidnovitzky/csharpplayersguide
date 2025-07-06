@@ -1,22 +1,31 @@
-Console.Write("What is the passcode: ");
-int.TryParse(Console.ReadLine(), out int passcodeInput);
+string passcodeInput; // string because int dont read lead zero
+string currentCode = "";
+string newCode = "";
+string codeGuess = "";
+
+while (true)
+{
+    Console.Write("What is the passcode: ");
+    passcodeInput = Console.ReadLine()!;
+
+    if (!string.IsNullOrEmpty(passcodeInput) && passcodeInput.All(char.IsDigit))
+    {
+        break;
+    }
+}
 
 Door door1 = new(passcodeInput);
 
 while (true)
 {
     Console.WriteLine($"The door is {door1.DoorState}.");
-    Console.Write($"Do you want to (open, close, lock, unlock) or change the passcode to the door > ");
+    Console.Write($"Do you want to (open, close, lock, unlock) or (change) the passcode to the door > ");
 
-    string stateInput = Console.ReadLine();
-    int currentCode = 0;
-    int newCode = 0;
+    string? stateInput = Console.ReadLine();
 
     switch (stateInput)
     {
         case "unlock":
-            Console.Write("What is the code: ");
-            int.TryParse(Console.ReadLine(), out int codeGuess);
             door1.Unlock(codeGuess);
             break;
         case "open":
@@ -33,14 +42,12 @@ while (true)
             break;
     }
 }
-
-
 public class Door
 {
     public DoorState DoorState { get; private set; } // private set to leave setting inside of the class
-    private int Passcode; // field names with underscore better? differenetiate from properties
+    private string Passcode; // field names with underscore better? differenetiate from properties
 
-    public Door(int passcode)
+    public Door(string passcode)
     {
         Passcode = passcode;
     }
@@ -49,6 +56,10 @@ public class Door
         if (DoorState == DoorState.Open)
         {
             DoorState = DoorState.Closed;
+        }
+        else if (DoorState == DoorState.Closed)
+        {
+            Console.WriteLine("The door is already closed can't you see?");
         }
     }
     public void Open()
@@ -64,24 +75,54 @@ public class Door
         {
             DoorState = DoorState.Locked;
         }
-    }
-    public void Unlock(int code)
-    {
-        if (DoorState == DoorState.Locked && Passcode == code)
+        else if (DoorState == DoorState.Open)
         {
-            DoorState = DoorState.Closed;
+            Console.WriteLine("Please close the door first");
         }
     }
-    public void ChangePassCode(int currentCode, int newCode)
+    public void Unlock(string? code)
+    {
+        if (DoorState == DoorState.Locked)
+        {
+            while (code == "" || code.All(char.IsLetter))
+            {
+                Console.Write("What is the code: ");
+                code = Console.ReadLine();
+            }
+            
+            if (Passcode == code)
+            {
+                DoorState = DoorState.Closed;
+            }
+            else
+            {
+                Console.WriteLine("Passcode incorrect");
+            }  
+        }
+        else if (DoorState == DoorState.Open)
+        {
+            Console.WriteLine("The door is already unlocked");
+        }
+        else if (DoorState == DoorState.Closed)
+        {
+            Console.WriteLine("The door is already unlocked");
+        }  
+    }
+    public void ChangePassCode(string currentCode, string newCode)
     {
 
-        Console.Write("Type in your current code: ");
-        int.TryParse(Console.ReadLine(), out currentCode);
-
+        while (currentCode == "" || currentCode.All(char.IsLetter))
+        {
+            Console.Write("Type in your current code: ");
+            currentCode = Console.ReadLine()!;
+        }
         if (Passcode == currentCode)
         {
-            Console.Write("Type in your new passcode: ");
-            int.TryParse(Console.ReadLine(), out newCode );
+            while (newCode == "" || newCode.All(char.IsLetter))
+            {
+                Console.Write("Type in your new passcode: ");
+                newCode = Console.ReadLine()!;
+            }
             Passcode = newCode;
         }
         else
