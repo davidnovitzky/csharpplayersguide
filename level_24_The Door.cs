@@ -1,7 +1,7 @@
 Console.Write("What is the passcode: ");
-int.TryParse(Console.ReadLine(), out int passcode);
+int.TryParse(Console.ReadLine(), out int passcodeInput);
 
-Door door1 = new(passcode);
+Door door1 = new(passcodeInput);
 
 while (true)
 {
@@ -9,11 +9,15 @@ while (true)
     Console.Write($"Do you want to (open, close, lock, unlock) or change the passcode to the door > ");
 
     string stateInput = Console.ReadLine();
+    int currentCode = 0;
+    int newCode = 0;
 
     switch (stateInput)
     {
         case "unlock":
-            door1.Unlock(passcode);
+            Console.Write("What is the code: ");
+            int.TryParse(Console.ReadLine(), out int codeGuess);
+            door1.Unlock(codeGuess);
             break;
         case "open":
             door1.Open();
@@ -25,19 +29,7 @@ while (true)
             door1.Lock();
             break;
         case "change":
-            Console.Write("What is the current code: ");
-            int.TryParse(Console.ReadLine(), out int currentCode);
-
-            if (passcode == currentCode)
-            {
-                Console.Write("Type in your new passcode: ");
-                int.TryParse(Console.ReadLine(), out int newCode);
-                door1.ChangePassCode(currentCode, newCode);
-            }
-            else
-            {
-                Console.WriteLine("Current password incorrect");
-            }
+            door1.ChangePassCode(currentCode, newCode);
             break;
     }
 }
@@ -45,8 +37,8 @@ while (true)
 
 public class Door
 {
-    public DoorState DoorState { get; set; }
-    private int Passcode;
+    public DoorState DoorState { get; private set; } // private set to leave setting inside of the class
+    private int Passcode; // field names with underscore better? differenetiate from properties
 
     public Door(int passcode)
     {
@@ -82,9 +74,19 @@ public class Door
     }
     public void ChangePassCode(int currentCode, int newCode)
     {
-        if (currentCode == Passcode)
+
+        Console.Write("Type in your current code: ");
+        int.TryParse(Console.ReadLine(), out currentCode);
+
+        if (Passcode == currentCode)
         {
+            Console.Write("Type in your new passcode: ");
+            int.TryParse(Console.ReadLine(), out newCode );
             Passcode = newCode;
+        }
+        else
+        {
+            Console.WriteLine("Current passcode incorrect");
         }
     }
 }
