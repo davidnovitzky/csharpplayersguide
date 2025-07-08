@@ -9,23 +9,23 @@ ArrowheadType ChooseArrowHeadType()
 
         switch (arrowheadInput)
         {
-            case "Steel":
-            {
-                return ArrowheadType.Steel;
-            }
-            case "Wood":
-            {
-                return ArrowheadType.Wood;
-            }
-            case "Obsidian":
-            {
-                return ArrowheadType.Obsidian;
-            }
+            case "steel":
+                {
+                    return ArrowheadType.Steel;
+                }
+            case "wood":
+                {
+                    return ArrowheadType.Wood;
+                }
+            case "obsidian":
+                {
+                    return ArrowheadType.Obsidian;
+                }
             default:
-            {
-                Console.WriteLine("Invalid Arrow Head Type");
-                break;
-            }
+                {
+                    Console.WriteLine("Invalid Arrow Head Type");
+                    break;
+                }
         }
     }
 }
@@ -39,22 +39,22 @@ FletchingType ChooseFletchingType()
         switch (fletchingTypeInput)
         {
             case "plastic":
-            {
-                return FletchingType.Plastic;
-            }
+                {
+                    return FletchingType.Plastic;
+                }
             case "turkey feathers":
-            {
-                return FletchingType.TurkeyFeathers;
-            }
+                {
+                    return FletchingType.TurkeyFeathers;
+                }
             case "goose feathers":
-            {
-                return FletchingType.GooseFeathers;
-            }
+                {
+                    return FletchingType.GooseFeathers;
+                }
             default:
-            {
-                Console.WriteLine("Invalid Fletching Type");
-                break;
-            }
+                {
+                    Console.WriteLine("Invalid Fletching Type");
+                    break;
+                }
         }
     }
 }
@@ -123,4 +123,4 @@ class Arrow
     }
 }
 enum ArrowheadType { Steel, Wood, Obsidian }
-enum FletchingType { Plastic, TurkeyFeathers, GooseFeathers}
+enum FletchingType { Plastic, TurkeyFeathers, GooseFeathers }
