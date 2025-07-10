@@ -3,7 +3,7 @@ Pack myPack = new Pack(20, 30, 10); // Create a new pack with max weight, volume
 while (true)
 {
     Console.WriteLine($"My pack currently holds {myPack.CurrentItemCount}/{myPack.TotalItemCount} items.");
-    Console.WriteLine($"My pack weighs: {myPack.CurrentWeight}/{myPack.MaxWeight}.");
+    Console.WriteLine($"My pack weighs: {myPack.CurrentWeight:F2}/{myPack.MaxWeight}.");
     Console.WriteLine($"Current volume: {myPack.CurrentVolume:F2}/{myPack.MaxVolume}.");
     Console.WriteLine("What do you want to add?");
     Console.WriteLine("1 - Arrow (0.1Kg, 0.05cm3)");
@@ -12,11 +12,10 @@ while (true)
     Console.WriteLine("4 - Water (2.0Kg, 3.00cm3)");
     Console.WriteLine("5 - Food  (1.0Kg, 0.50cm3)");
     Console.WriteLine("6 - Sword (5.0Kg, 3.00cm3)");
-
     
-    int menuChoiceInput = Convert.ToInt32(Console.ReadLine());
+    int.TryParse(Console.ReadLine(), out int menuChoiceInput);
 
-    InventoryItem newItem = menuChoiceInput switch
+    InventoryItem? newItem = menuChoiceInput switch
     {
         1 => new Arrow(),
         2 => new Bow(),
@@ -24,25 +23,38 @@ while (true)
         4 => new Water(),
         5 => new FoodRations(),
         6 => new Sword(),
-        //_ =>  Default to what?
+        _ =>  null
     };
+    Console.Clear();
+
+
+    if (newItem == null)
+    {
+        Console.ForegroundColor = ConsoleColor.Yellow;
+        Console.WriteLine("Invalid choice. Please enter a number from 1 to 6.");
+        Console.ResetColor();
+        continue;
+    }
 
     if (myPack.Add(newItem))
     {
+        Console.ForegroundColor = ConsoleColor.Green;
         Console.WriteLine($"Added {newItem.GetType().Name} to the pack.");
+        Console.ResetColor();
     }
     else
     {
+        Console.ForegroundColor = ConsoleColor.Red;
         Console.WriteLine("Cannot add item: pack is full or item exceeds weight/volume limits.");
+        Console.ResetColor();
     }
-    Console.Clear();
 }
 public class Pack
 {
     private InventoryItem[] _items; // array of InventoryItem objects
-    public float MaxWeight { get; set; } // maximum weight capacity of the pack
-    public float MaxVolume { get; set; } // maximum volume capacity of the pack
-    public int TotalItemCount { get; set; } // total number of items in the pack
+    public float MaxWeight { get; } // maximum weight capacity of the pack
+    public float MaxVolume { get; } // maximum volume capacity of the pack
+    public int TotalItemCount { get; } // total number of items in the pack
 
     public Pack(float maxWeight, float maxVolume, int totalItemCount) // constructor
     {
@@ -65,15 +77,15 @@ public class Pack
         return true;
     }
 
-    public float CurrentWeight { get; set; }
-    public float CurrentVolume { get; set; }
-    public int CurrentItemCount { get; set; }
+    public float CurrentWeight { get; private set; }
+    public float CurrentVolume { get; private set; }
+    public int CurrentItemCount { get; private set; }
 }
 
 public class InventoryItem // This class represents an item in an inventory system
 {
-    public float Weight { get; set; } // property for weight
-    public float Volume { get; set; } // property for volume
+    public float Weight { get; } // property for weight
+    public float Volume { get; } // property for volume
 
     public InventoryItem(float weight, float volume) // constructor
     {
