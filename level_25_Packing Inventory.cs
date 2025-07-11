@@ -73,6 +73,7 @@ public class Pack
         if (CurrentVolume + item.Volume > MaxVolume) return false;
         if (CurrentWeight + item.Weight > MaxWeight) return false;
 
+        //  If all checks pass, this line adds the item to the _items array
         _items[CurrentItemCount] = item;
         CurrentItemCount++;
         CurrentVolume += item.Volume;
