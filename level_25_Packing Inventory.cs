@@ -55,15 +55,18 @@ public class Pack
     public float MaxWeight { get; } // maximum weight capacity of the pack
     public float MaxVolume { get; } // maximum volume capacity of the pack
     public int TotalItemCount { get; } // total number of items in the pack
+    public float CurrentWeight { get; private set; }
+    public float CurrentVolume { get; private set; }
+    public int CurrentItemCount { get; private set; }
 
     public Pack(float maxWeight, float maxVolume, int totalItemCount) // constructor
     {
+        // These lines assign the values passed into the constructor to the corresponding fields or properties
         MaxWeight = maxWeight;
         MaxVolume = maxVolume;
         TotalItemCount = totalItemCount;
-        _items = new InventoryItem[totalItemCount]; // initialize the array with the total item count
+        _items = new InventoryItem[totalItemCount]; // initializes a fixed-size array of InventoryItem objects, with the size equal to the total number of items the pack is allowed to hold
     }
-
     public bool Add(InventoryItem item)
     {
         if (CurrentItemCount >= TotalItemCount) return false;
@@ -76,10 +79,6 @@ public class Pack
         CurrentWeight += item.Weight;
         return true;
     }
-
-    public float CurrentWeight { get; private set; }
-    public float CurrentVolume { get; private set; }
-    public int CurrentItemCount { get; private set; }
 }
 
 public class InventoryItem // This class represents an item in an inventory system
