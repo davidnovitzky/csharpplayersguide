@@ -2,6 +2,7 @@ Pack myPack = new Pack(20, 30, 10); // Create a new pack with max weight, volume
 
 while (true)
 {
+    myPack.ShowContents(); // Show the contents of the pack 
     Console.WriteLine($"My pack currently holds {myPack.CurrentItemCount}/{myPack.TotalItemCount} items.");
     Console.WriteLine($"My pack weighs: {myPack.CurrentWeight:F2}/{myPack.MaxWeight}.");
     Console.WriteLine($"Current volume: {myPack.CurrentVolume:F2}/{myPack.MaxVolume}.");
@@ -49,9 +50,10 @@ while (true)
         Console.ResetColor();
     }
 }
+
 public class Pack
 {
-    private InventoryItem[] _items; // array of InventoryItem objects
+    public InventoryItem[] _items; // array of InventoryItem objects
     public float MaxWeight { get; } // maximum weight capacity of the pack
     public float MaxVolume { get; } // maximum volume capacity of the pack
     public int TotalItemCount { get; } // total number of items in the pack
@@ -73,12 +75,20 @@ public class Pack
         if (CurrentVolume + item.Volume > MaxVolume) return false;
         if (CurrentWeight + item.Weight > MaxWeight) return false;
 
-        //  If all checks pass, this line adds the item to the _items array
+        // If all checks pass, this line adds the item to the _items array:
         _items[CurrentItemCount] = item;
         CurrentItemCount++;
         CurrentVolume += item.Volume;
         CurrentWeight += item.Weight;
         return true;
+    }
+    public void ShowContents()
+    {
+        Console.WriteLine("Items in your pack:");
+        for (int i = 0; i < CurrentItemCount; i++)
+        {
+            Console.WriteLine($"- {_items[i].GetType().Name}");
+        }
     }
 }
 
