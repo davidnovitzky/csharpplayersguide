@@ -13,7 +13,7 @@ while (true)
     Console.WriteLine("4 - Water (2.0Kg, 3.00cm3)");
     Console.WriteLine("5 - Food  (1.0Kg, 0.50cm3)");
     Console.WriteLine("6 - Sword (5.0Kg, 3.00cm3)");
-    
+
     int.TryParse(Console.ReadLine(), out int menuChoiceInput);
 
     InventoryItem? newItem = menuChoiceInput switch
@@ -24,7 +24,7 @@ while (true)
         4 => new Water(),
         5 => new FoodRations(),
         6 => new Sword(),
-        _ =>  null
+        _ => null
     };
     Console.Clear();
 
@@ -48,6 +48,7 @@ while (true)
         Console.ForegroundColor = ConsoleColor.Red;
         Console.WriteLine("Cannot add item: pack is full or item exceeds weight/volume limits.");
         Console.ResetColor();
+        return;
     }
 }
 
@@ -103,7 +104,7 @@ public class InventoryItem // This class represents an item in an inventory syst
         Volume = volume;
     }
 }
-public class Arrow : InventoryItem 
+public class Arrow : InventoryItem
 {
     public Arrow() : base(0.1f, 0.05f) // constructor for Arrow that calls the base class constructor
     {
@@ -127,7 +128,7 @@ public class Water : InventoryItem
     {
     }
 }
-public class FoodRations: InventoryItem
+public class FoodRations : InventoryItem
 {
     public FoodRations() : base(1.0f, 0.5f)
     {
